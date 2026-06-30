@@ -1,16 +1,14 @@
 "use client";
 
-import { Menu, MessageCircle, ShieldCheck, X } from "lucide-react";
+import { ArrowRight, Menu, ShieldCheck, X } from "lucide-react";
 import { useState } from "react";
-
-const whatsapp =
-  "https://wa.me/33661125401?text=Bonjour%2C%20je%20souhaite%20%C3%AAtre%20accompagn%C3%A9%20pour%20la%20cr%C3%A9ation%20d%27une%20LLC%20am%C3%A9ricaine.";
 
 const navLinks = [
   { label: "Accueil", href: "#accueil" },
-  { label: "Services", href: "#services" },
+  { label: "Avantages", href: "#avantages" },
+  { label: "Process", href: "#process" },
+  { label: "Solutions", href: "#solutions" },
   { label: "Tarifs", href: "#tarifs" },
-  { label: "Avis", href: "#avis" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
@@ -19,57 +17,51 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#06111f]/75 backdrop-blur-2xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+    <header className="fixed left-0 top-0 z-50 w-full bg-[#06111f]/80 backdrop-blur-2xl">
+      <div className="mx-auto flex h-24 max-w-[1500px] items-center justify-between px-6 lg:px-10">
         <a href="#accueil" className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 shadow-lg shadow-[#d4af37]/10">
-            <ShieldCheck className="h-6 w-6 text-[#d4af37]" />
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#d4af37]/50 bg-[#d4af37]/10">
+            <ShieldCheck className="h-8 w-8 text-[#d4af37]" />
           </div>
 
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-white">
-              Fiscal & Business
+            <p className="text-2xl font-black uppercase tracking-[0.22em] text-white">
+              Fiscal
             </p>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d4af37]">
-              Services
+            <p className="text-sm font-bold uppercase tracking-[0.45em] text-[#d4af37]">
+              Business
             </p>
           </div>
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
+        <nav className="hidden items-center gap-10 lg:flex">
+          {navLinks.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold text-white/65 transition hover:text-[#d4af37]"
+              className={`relative text-base font-medium transition ${
+                index === 0 ? "text-white" : "text-white/70 hover:text-white"
+              }`}
             >
               {link.label}
+              {index === 0 && (
+                <span className="absolute -bottom-4 left-0 h-0.5 w-full bg-[#d4af37]" />
+              )}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href={whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-bold text-white transition hover:border-[#d4af37]/70 hover:text-[#d4af37]"
-          >
-            <MessageCircle size={18} />
-            WhatsApp
-          </a>
-
-          <a
-            href="#tarifs"
-            className="rounded-full bg-gradient-to-r from-[#d4af37] to-[#f7d878] px-6 py-3 text-sm font-black text-[#06111f] shadow-xl shadow-[#d4af37]/20 transition hover:scale-105"
-          >
-            Créer ma LLC
-          </a>
-        </div>
+        <a
+          href="#tarifs"
+          className="hidden items-center gap-3 rounded-2xl bg-gradient-to-r from-[#d4af37] to-[#f8df8a] px-8 py-4 font-black text-[#06111f] shadow-2xl shadow-[#d4af37]/20 transition hover:-translate-y-1 lg:flex"
+        >
+          Créer ma LLC
+          <ArrowRight className="h-5 w-5" />
+        </a>
 
         <button
           onClick={() => setOpen(!open)}
-          className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 text-white transition hover:border-[#d4af37]/50 lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 text-white lg:hidden"
           aria-label="Menu"
         >
           {open ? <X /> : <Menu />}
@@ -84,27 +76,16 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-base font-semibold text-white/80 transition hover:text-[#d4af37]"
+                className="text-base font-semibold text-white/80"
               >
                 {link.label}
               </a>
             ))}
 
             <a
-              href={whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className="flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-center text-sm font-bold text-white"
-            >
-              <MessageCircle size={18} />
-              WhatsApp
-            </a>
-
-            <a
               href="#tarifs"
               onClick={() => setOpen(false)}
-              className="rounded-full bg-gradient-to-r from-[#d4af37] to-[#f7d878] px-6 py-3 text-center text-sm font-black text-[#06111f]"
+              className="rounded-2xl bg-gradient-to-r from-[#d4af37] to-[#f8df8a] px-6 py-4 text-center font-black text-[#06111f]"
             >
               Créer ma LLC
             </a>
