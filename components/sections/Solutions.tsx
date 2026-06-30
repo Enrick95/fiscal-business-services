@@ -2,7 +2,7 @@
 
 import Reveal from "@/components/ui/Reveal";
 import {
-  BadgeCheck,
+  Coins,
   Building2,
   CreditCard,
   Landmark,
@@ -16,42 +16,42 @@ const solutions = [
     icon: CreditCard,
     title: "Paiements en ligne",
     description:
-      "Configuration et accompagnement pour accepter les paiements selon votre activité et votre éligibilité.",
+      "Configuration et accompagnement pour accepter les paiements en ligne selon votre activité et votre éligibilité.",
   },
   {
     name: "Mercury",
     icon: Landmark,
     title: "Banque professionnelle",
     description:
-      "Accompagnement dans les démarches d'ouverture d'un compte professionnel américain.",
+      "Accompagnement dans les démarches d'ouverture d'un compte bancaire professionnel américain.",
   },
   {
     name: "Relay",
     icon: Building2,
     title: "Compte bancaire Business",
     description:
-      "Solution bancaire adaptée aux entreprises américaines selon votre profil.",
+      "Solution bancaire moderne adaptée aux entreprises américaines selon votre profil.",
   },
   {
     name: "Wise Business",
     icon: Wallet,
     title: "Paiements internationaux",
     description:
-      "Configuration des paiements internationaux et gestion multi-devises.",
+      "Gestion des paiements internationaux et des transferts multi-devises pour votre activité.",
   },
   {
     name: "Payoneer",
     icon: CreditCard,
     title: "Réception de paiements",
     description:
-      "Accompagnement pour recevoir des paiements de clients internationaux.",
+      "Accompagnement pour recevoir des paiements de clients internationaux partout dans le monde.",
   },
   {
-    name: "Slash",
-    icon: BadgeCheck,
-    title: "Solutions financières",
+    name: "Kraken",
+    icon: Coins,
+    title: "Compte Crypto Business",
     description:
-      "Orientation vers des solutions adaptées à vos besoins professionnels.",
+      "Ouverture et configuration d'un compte Kraken Business pour acheter, vendre, conserver et gérer vos actifs numériques selon votre activité.",
   },
 ];
 
@@ -60,7 +60,7 @@ export default function Solutions() {
     <Reveal>
       <section className="relative overflow-hidden bg-[#071321] px-6 py-28 text-white">
         <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-[#d4af37]/10 blur-[150px]" />
-        <div className="absolute right-[-10%] bottom-0 h-[520px] w-[520px] rounded-full bg-blue-500/10 blur-[180px]" />
+        <div className="absolute bottom-0 right-[-10%] h-[520px] w-[520px] rounded-full bg-blue-500/10 blur-[180px]" />
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mx-auto mb-16 max-w-3xl text-center">
@@ -74,7 +74,8 @@ export default function Solutions() {
 
             <p className="mt-6 text-lg leading-relaxed text-white/65">
               Nous accompagnons nos clients dans la mise en place de solutions
-              professionnelles adaptées à leur activité et à leur éligibilité.
+              professionnelles adaptées à leur activité, leurs objectifs et leur
+              éligibilité.
             </p>
           </div>
 
@@ -95,7 +96,7 @@ export default function Solutions() {
                     {solution.name}
                   </div>
 
-                  <div className="mb-5 text-[#d4af37] font-semibold">
+                  <div className="mb-5 font-semibold text-[#d4af37]">
                     {solution.title}
                   </div>
 
@@ -114,11 +115,12 @@ export default function Solutions() {
                   Une solution adaptée à votre activité.
                 </h3>
 
-                <p className="mt-3 max-w-3xl text-white/65 leading-7">
+                <p className="mt-3 max-w-3xl leading-7 text-white/65">
                   Chaque plateforme applique ses propres critères
                   d'acceptation. Nous analysons votre projet afin de vous
-                  orienter vers les solutions les plus adaptées à votre activité
-                  et à votre profil.
+                  orienter vers les solutions les plus adaptées, qu'il s'agisse
+                  de banques professionnelles, de solutions de paiement ou de
+                  plateformes spécialisées dans les actifs numériques.
                 </p>
               </div>
 

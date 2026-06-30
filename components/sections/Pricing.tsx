@@ -1,10 +1,14 @@
-import { ArrowRight, Check, Crown, ShieldCheck } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ArrowRight, Check, Crown, Loader2, ShieldCheck } from "lucide-react";
 
 const whatsappUrl =
   "https://wa.me/33661125401?text=Bonjour%20%F0%9F%91%8B%0AJe%20souhaite%20avoir%20des%20informations%20sur%20la%20gestion%20annuelle%20de%20ma%20LLC.";
 
 const plans = [
   {
+    id: "standard",
     title: "Standard",
     price: "799 €",
     priceNote: "Paiement unique",
@@ -20,9 +24,10 @@ const plans = [
     featured: false,
     badge: "Pour bien démarrer",
     buttonText: "Payer l’offre Standard",
-    stripeUrl: "https://buy.stripe.com/cNi7sK67q7kFgmf51R9R605",
+    type: "stripe",
   },
   {
+    id: "premium",
     title: "Premium",
     price: "1 000 €",
     priceNote: "Paiement unique",
@@ -41,9 +46,10 @@ const plans = [
     featured: true,
     badge: "La solution la plus complète",
     buttonText: "Payer l’offre Premium",
-    stripeUrl: "https://buy.stripe.com/bJeeVccvOawRee7eCr9R606",
+    type: "stripe",
   },
   {
+    id: "gestion",
     title: "Gestion annuelle",
     price: "À partir de 80 €/an",
     priceNote: "Suivi annuel",
@@ -59,11 +65,39 @@ const plans = [
     featured: false,
     badge: "Conformité",
     buttonText: "Nous contacter",
-    stripeUrl: whatsappUrl,
+    type: "whatsapp",
   },
 ];
 
 export default function Pricing() {
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+
+  const handleCheckout = async (planId: string) => {
+    try {
+      setLoadingPlan(planId);
+
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ plan: planId }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.url) {
+        throw new Error("Impossible de créer la session de paiement.");
+      }
+
+      window.location.href = data.url;
+    } catch (error) {
+      console.error(error);
+      alert("Une erreur est survenue. Veuillez réessayer ou nous contacter.");
+      setLoadingPlan(null);
+    }
+  };
+
   return (
     <section
       id="tarifs"
@@ -174,28 +208,53 @@ export default function Pricing() {
                 ))}
               </div>
 
-              <a
-                href={plan.stripeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`mt-10 flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 text-center font-bold transition ${
-                  plan.featured
-                    ? "bg-black text-white hover:bg-[#111]"
-                    : "bg-[#d4af37] text-black hover:bg-[#e6c45a]"
-                }`}
-              >
-                {plan.buttonText}
-                <ArrowRight className="h-5 w-5" />
-              </a>
+              {plan.type === "stripe" ? (
+                <button
+                  type="button"
+                  onClick={() => handleCheckout(plan.id)}
+                  disabled={loadingPlan === plan.id}
+                  className={`mt-10 flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 text-center font-bold transition disabled:cursor-not-allowed disabled:opacity-70 ${
+                    plan.featured
+                      ? "bg-black text-white hover:bg-[#111]"
+                      : "bg-[#d4af37] text-black hover:bg-[#e6c45a]"
+                  }`}
+                >
+                  {loadingPlan === plan.id ? (
+                    <>
+                      Redirection...
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      {plan.buttonText}
+                      <ArrowRight className="h-5 w-5" />
+                    </>
+                  )}
+                </button>
+              ) : (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-10 flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 text-center font-bold transition ${
+                    plan.featured
+                      ? "bg-black text-white hover:bg-[#111]"
+                      : "bg-[#d4af37] text-black hover:bg-[#e6c45a]"
+                  }`}
+                >
+                  {plan.buttonText}
+                  <ArrowRight className="h-5 w-5" />
+                </a>
+              )}
             </div>
           ))}
         </div>
 
         <p className="mx-auto mt-12 max-w-3xl text-center text-sm leading-relaxed text-white/45">
           Toutes les transactions sont sécurisées par Stripe. Après validation
-          de votre paiement, vous serez immédiatement redirigé vers la suite de
-          votre accompagnement afin de démarrer la création de votre LLC dans les
-          meilleures conditions.
+          de votre paiement, vous serez automatiquement redirigé vers la suite
+          de votre accompagnement afin de démarrer la création de votre LLC dans
+          les meilleures conditions.
         </p>
       </div>
     </section>
