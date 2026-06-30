@@ -1,7 +1,7 @@
 import { ArrowRight, Check, Crown, ShieldCheck } from "lucide-react";
 
 const whatsappUrl =
-  "https://wa.me/33661125401?text=Bonjour%2C%20je%20souhaite%20avoir%20des%20informations%20sur%20la%20cr%C3%A9ation%20d%27une%20LLC%20am%C3%A9ricaine.";
+  "https://wa.me/33661125401?text=Bonjour%20%F0%9F%91%8B%0AJe%20souhaite%20avoir%20des%20informations%20sur%20la%20gestion%20annuelle%20de%20ma%20LLC.";
 
 const plans = [
   {
@@ -19,6 +19,8 @@ const plans = [
     ],
     featured: false,
     badge: "Pour bien démarrer",
+    buttonText: "Payer l’offre Standard",
+    stripeUrl: "https://buy.stripe.com/cNi7sK67q7kFgmf51R9R605",
   },
   {
     title: "Premium",
@@ -38,6 +40,8 @@ const plans = [
     ],
     featured: true,
     badge: "La solution la plus complète",
+    buttonText: "Payer l’offre Premium",
+    stripeUrl: "https://buy.stripe.com/bJeeVccvOawRee7eCr9R606",
   },
   {
     title: "Gestion annuelle",
@@ -54,6 +58,8 @@ const plans = [
     ],
     featured: false,
     badge: "Conformité",
+    buttonText: "Nous contacter",
+    stripeUrl: whatsappUrl,
   },
 ];
 
@@ -77,8 +83,11 @@ export default function Pricing() {
           </h2>
 
           <p className="mt-6 text-lg leading-relaxed text-white/65">
-            Choisissez l’accompagnement adapté à votre projet. Chaque offre est
-            pensée pour vous guider avec sérieux, transparence et efficacité.
+            Choisissez l'accompagnement qui correspond à votre projet et réglez
+            votre commande en toute sécurité. Le paiement est traité par Stripe
+            avec les principaux moyens de paiement disponibles : carte bancaire,
+            Apple Pay, Google Pay et, selon votre éligibilité, le paiement en
+            plusieurs fois avec Klarna.
           </p>
         </div>
 
@@ -166,7 +175,7 @@ export default function Pricing() {
               </div>
 
               <a
-                href={whatsappUrl}
+                href={plan.stripeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`mt-10 flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 text-center font-bold transition ${
@@ -175,7 +184,7 @@ export default function Pricing() {
                     : "bg-[#d4af37] text-black hover:bg-[#e6c45a]"
                 }`}
               >
-                Commencer mon accompagnement
+                {plan.buttonText}
                 <ArrowRight className="h-5 w-5" />
               </a>
             </div>
@@ -183,9 +192,10 @@ export default function Pricing() {
         </div>
 
         <p className="mx-auto mt-12 max-w-3xl text-center text-sm leading-relaxed text-white/45">
-          Les tarifs peuvent varier selon la complexité du dossier, les besoins
-          bancaires, les solutions de paiement demandées et les exigences de
-          conformité.
+          Toutes les transactions sont sécurisées par Stripe. Après validation
+          de votre paiement, vous serez immédiatement redirigé vers la suite de
+          votre accompagnement afin de démarrer la création de votre LLC dans les
+          meilleures conditions.
         </p>
       </div>
     </section>
